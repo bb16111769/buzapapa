@@ -1,0 +1,924 @@
+<!DOCTYPE html>
+<html lang="ko" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>이상한 홈케어 | 문제는 이상해도, 해결은 제대로!</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Pretendard & Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        navy: '#1F2B4D',      // Main: 딥 네이비
+                        teal: '#0E6B7A',      // Sub: 틸 블루
+                        orange: '#FF7A00',    // Accent: 현장 오렌지
+                        coolgray: '#E6EAF2',  // Background: 쿨 그레이
+                    },
+                    fontFamily: {
+                        sans: ['"Noto Sans KR"', 'Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Noto Sans KR', 'Inter', sans-serif;
+            color: #1F2B4D;
+            overflow-x: hidden;
+            word-break: keep-all;
+            overflow-wrap: break-word;
+            letter-spacing: -0.015em;
+        }
+        p, li, blockquote, dd {
+            line-height: 1.75;
+        }
+        h1, h2, h3, h4 {
+            line-height: 1.3;
+            letter-spacing: -0.025em;
+        }
+        /* 히어로 배경 그라데이션 & 패턴 */
+        .hero-bg {
+            background: linear-gradient(135deg, rgba(31, 43, 77, 0.94) 0%, rgba(14, 107, 122, 0.88) 100%),
+                        radial-gradient(circle at top right, rgba(255, 122, 0, 0.2), transparent 50%);
+        }
+        /* 부드러운 카드 호버 효과 */
+        .service-card {
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .service-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px -8px rgba(31, 43, 77, 0.15);
+            border-color: #FF7A00;
+        }
+    </style>
+</head>
+<body class="bg-white antialiased pb-20 md:pb-0">
+
+    <!-- =================================================================
+         [HEADER] 최상단 상호명 및 네비게이션
+         ================================================================= -->
+    <header class="sticky top-0 z-40 bg-navy/95 backdrop-blur-md text-white shadow-md border-b border-white/10">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+            <!-- 상호명 로고 -->
+            <a href="#top" class="flex items-center gap-2.5 group">
+                <div class="w-9 h-9 rounded-xl bg-orange flex items-center justify-center text-white font-black text-lg shadow-sm group-hover:scale-105 transition-transform">
+                    <i class="fa-solid fa-wrench"></i>
+                </div>
+                <div>
+                    <span class="text-lg sm:text-xl font-black tracking-tight block leading-none">이상한 홈케어</span>
+                    <span class="text-[10px] sm:text-xs text-coolgray/80 font-medium tracking-wider">STRANGE HOMECARE</span>
+                </div>
+            </a>
+
+            <!-- PC 네비게이션 메뉴 -->
+            <nav class="hidden md:flex items-center gap-7 text-sm font-medium text-coolgray">
+                <a href="#services" class="hover:text-orange transition-colors">가전 설치 서비스</a>
+                <a href="#area" class="hover:text-orange transition-colors">출장 가능 지역</a>
+                <a href="#education" class="hover:text-orange transition-colors">원웨이 창업·부업</a>
+                <a href="#reports" class="hover:text-orange transition-colors">시공·교육 현장</a>
+            </nav>
+
+            <!-- 우측 빠른 상담 버튼 -->
+            <div class="flex items-center gap-2">
+                <a href="tel:010-9745-4321" class="hidden sm:inline-flex items-center gap-1.5 text-xs font-bold bg-white/10 hover:bg-white/20 px-3.5 py-2 rounded-xl transition-colors">
+                    <i class="fa-solid fa-phone text-orange"></i>
+                    <span>010-9745-4321</span>
+                </a>
+                <button onclick="openModal('install')" class="bg-orange hover:bg-orange/90 text-white text-xs sm:text-sm font-bold px-3.5 py-2 sm:px-4 sm:py-2.5 rounded-xl shadow-sm transition-all active:scale-95">
+                    간편 문의
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- =================================================================
+         [SECTION 1] 히어로 배너 (상호명 핵심 소개 & 투트랙 CTA)
+         ================================================================= -->
+    <section id="top" class="hero-bg text-white relative overflow-hidden">
+        <!-- 배경 장식 아이콘 -->
+        <div class="absolute -right-16 -bottom-16 text-white/5 text-[240px] pointer-events-none select-none">
+            <i class="fa-solid fa-screwdriver-wrench"></i>
+        </div>
+
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 py-14 sm:py-24 relative z-10">
+            <div class="max-w-3xl text-center sm:text-left mx-auto sm:mx-0">
+                <!-- 출장 지역 & 창업 배지 -->
+                <div class="inline-flex items-center gap-2 bg-white/15 border border-white/20 backdrop-blur-sm px-3.5 py-1.5 rounded-full text-xs sm:text-sm font-semibold text-coolgray mb-6">
+                    <span class="w-2 h-2 rounded-full bg-orange animate-pulse shrink-0"></span>
+                    <span>포항 · 경주 · 부산 · 창원 · 김해 신속 출장 &amp; 실전 창업 교육</span>
+                </div>
+
+                <!-- 상호명 및 메인 슬로건 -->
+                <p class="text-orange font-bold text-sm sm:text-base mb-3 tracking-wide">
+                    가전 설치 &amp; 무점포 기술 창업 파트너 — 이상한 홈케어
+                </p>
+                <h1 class="text-3xl sm:text-5xl md:text-[56px] font-black leading-[1.2] tracking-tight mb-7">
+                    <span class="block mb-1.5">“문제는 이상해도,</span>
+                    <span class="block text-orange">해결은 제대로!”</span>
+                </h1>
+
+                <!-- 가게 핵심 소개 문구 -->
+                <div class="space-y-1.5 text-[15px] sm:text-lg text-coolgray/95 leading-relaxed mb-9 max-w-2xl mx-auto sm:mx-0 font-normal">
+                    <p>
+                        다른 곳에서 포기한 까다로운 가전제품 설치부터,<br class="hidden sm:inline">
+                        임대료 걱정 없는 무점포 기술 창업·부업 교육까지.
+                    </p>
+                    <p>
+                        수많은 현장이 검증한 전문가 <strong class="text-white font-bold">이상한 홈케어</strong>가 확실한 결과로 증명합니다.
+                    </p>
+                </div>
+
+                <!-- 투트랙(Two-Track) 핵심 CTA 버튼 2종 -->
+                <div class="flex flex-col sm:flex-row justify-center sm:justify-start gap-3.5 sm:gap-4">
+                    <button onclick="openModal('install')" class="w-full sm:w-auto flex items-center justify-center gap-2.5 bg-orange hover:bg-[#e56d00] text-white font-bold text-base sm:text-lg px-7 py-4 rounded-2xl shadow-lg shadow-orange/30 transition-all active:scale-98">
+                        <i class="fa-solid fa-toolbox"></i>
+                        <span>가전 설치 견적 문의</span>
+                    </button>
+                    <button onclick="openModal('startup')" class="w-full sm:w-auto flex items-center justify-center gap-2.5 bg-teal hover:bg-[#0b5865] border border-white/20 text-white font-bold text-base sm:text-lg px-7 py-4 rounded-2xl shadow-lg transition-all active:scale-98">
+                        <i class="fa-solid fa-graduation-cap"></i>
+                        <span>무점포 창업/부업 상담</span>
+                    </button>
+                </div>
+
+                <!-- 신뢰 지표 요약 -->
+                <div class="grid grid-cols-3 gap-3 sm:gap-6 mt-12 pt-8 border-t border-white/15 max-w-xl mx-auto sm:mx-0 text-center sm:text-left">
+                    <div>
+                        <div class="text-lg sm:text-2xl font-black text-white">8대 핵심</div>
+                        <div class="text-xs sm:text-sm text-coolgray/85 mt-1">전문 가전 시공</div>
+                    </div>
+                    <div>
+                        <div class="text-lg sm:text-2xl font-black text-orange">영남권 5개 도시</div>
+                        <div class="text-xs sm:text-sm text-coolgray/85 mt-1">당일·신속 출장</div>
+                    </div>
+                    <div>
+                        <div class="text-lg sm:text-2xl font-black text-white">1:1 현장 동행</div>
+                        <div class="text-xs sm:text-sm text-coolgray/85 mt-1">원웨이 창업 교육</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- =================================================================
+         [SECTION 2] 가전제품 전문 설치 서비스 (8대 핵심 품목)
+         ================================================================= -->
+    <section id="services" class="py-16 sm:py-24 bg-white">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6">
+            <!-- 섹션 헤더 -->
+            <div class="text-center max-w-2xl mx-auto mb-12 sm:mb-16">
+                <span class="inline-block text-teal font-bold text-xs sm:text-sm tracking-wider uppercase bg-teal/10 px-3.5 py-1 rounded-full mb-3.5">
+                    PROFESSIONAL INSTALLATION
+                </span>
+                <h2 class="text-2xl sm:text-4xl font-black text-navy tracking-tight mb-4">
+                    어려운 현장도 깔끔하게,<br>
+                    이상한 홈케어 설치 솔루션
+                </h2>
+                <p class="text-sm sm:text-base text-slate-600 leading-relaxed max-w-xl mx-auto">
+                    표준 시공 원칙과 정밀 점검으로 안전하고 완벽한 가전 설치를 약속드립니다.<br class="hidden sm:inline">
+                    원하시는 품목 카드를 누르시면 바로 견적을 문의하실 수 있습니다.
+                </p>
+            </div>
+
+            <!-- 8대 핵심 품목 그리드 (모바일 1~2열, 태블릿 2열, PC 4열) -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+                <!-- 1. 주방 후드 -->
+                <div onclick="openModal('install', '주방 후드')" class="service-card cursor-pointer bg-white border-2 border-coolgray rounded-2xl p-5 sm:p-6 flex flex-col justify-between">
+                    <div>
+                        <div class="w-12 h-12 rounded-xl bg-navy/5 text-navy flex items-center justify-center text-xl mb-4">
+                            <i class="fa-solid fa-wind"></i>
+                        </div>
+                        <div class="flex items-center justify-between mb-2">
+                            <h3 class="text-lg font-bold text-navy">01. 주방 후드</h3>
+                            <span class="text-xs font-semibold text-orange bg-orange/10 px-2 py-0.5 rounded-md">인기</span>
+                        </div>
+                        <p class="text-sm text-slate-600 leading-relaxed">
+                            흡입력 개선, 배기 덕트 정밀 시공 및 노후 주방 후드 깔끔 교체
+                        </p>
+                    </div>
+                    <div class="mt-4 pt-3 border-t border-coolgray/60 flex items-center justify-between text-xs font-bold text-teal">
+                        <span>설치 견적 문의하기</span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </div>
+                </div>
+
+                <!-- 2. 가스레인지 -->
+                <div onclick="openModal('install', '가스레인지')" class="service-card cursor-pointer bg-white border-2 border-coolgray rounded-2xl p-5 sm:p-6 flex flex-col justify-between">
+                    <div>
+                        <div class="w-12 h-12 rounded-xl bg-navy/5 text-navy flex items-center justify-center text-xl mb-4">
+                            <i class="fa-solid fa-fire-burner"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-navy mb-2">02. 가스레인지</h3>
+                        <p class="text-sm text-slate-600 leading-relaxed">
+                            가스 누설 철저 안전 점검을 동반한 빌트인·스탠드형 정밀 설치
+                        </p>
+                    </div>
+                    <div class="mt-4 pt-3 border-t border-coolgray/60 flex items-center justify-between text-xs font-bold text-teal">
+                        <span>설치 견적 문의하기</span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </div>
+                </div>
+
+                <!-- 3. 에어컨 설치 -->
+                <div onclick="openModal('install', '에어컨 설치')" class="service-card cursor-pointer bg-white border-2 border-coolgray rounded-2xl p-5 sm:p-6 flex flex-col justify-between">
+                    <div>
+                        <div class="w-12 h-12 rounded-xl bg-navy/5 text-navy flex items-center justify-center text-xl mb-4">
+                            <i class="fa-regular fa-snowflake"></i>
+                        </div>
+                        <div class="flex items-center justify-between mb-2">
+                            <h3 class="text-lg font-bold text-navy">03. 에어컨 설치</h3>
+                            <span class="text-xs font-semibold text-orange bg-orange/10 px-2 py-0.5 rounded-md">필수</span>
+                        </div>
+                        <p class="text-sm text-slate-600 leading-relaxed">
+                            배관 깔끔 마감부터 정석 진공 작업까지 표준 원칙 준수 시공
+                        </p>
+                    </div>
+                    <div class="mt-4 pt-3 border-t border-coolgray/60 flex items-center justify-between text-xs font-bold text-teal">
+                        <span>설치 견적 문의하기</span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </div>
+                </div>
+
+                <!-- 4. 에어컨 냉매 충전 -->
+                <div onclick="openModal('install', '에어컨 냉매 충전')" class="service-card cursor-pointer bg-white border-2 border-coolgray rounded-2xl p-5 sm:p-6 flex flex-col justify-between">
+                    <div>
+                        <div class="w-12 h-12 rounded-xl bg-navy/5 text-navy flex items-center justify-center text-xl mb-4">
+                            <i class="fa-solid fa-gauge-high"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-navy mb-2">04. 에어컨 냉매 충전</h3>
+                        <p class="text-sm text-slate-600 leading-relaxed">
+                            정밀 압력 측정 후 미세 누설 여부 점검 및 제조사 기준 정량 보충
+                        </p>
+                    </div>
+                    <div class="mt-4 pt-3 border-t border-coolgray/60 flex items-center justify-between text-xs font-bold text-teal">
+                        <span>충전 견적 문의하기</span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </div>
+                </div>
+
+                <!-- 5. 전기 인덕션 -->
+                <div onclick="openModal('install', '전기 인덕션')" class="service-card cursor-pointer bg-white border-2 border-coolgray rounded-2xl p-5 sm:p-6 flex flex-col justify-between">
+                    <div>
+                        <div class="w-12 h-12 rounded-xl bg-navy/5 text-navy flex items-center justify-center text-xl mb-4">
+                            <i class="fa-solid fa-bolt"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-navy mb-2">05. 전기 인덕션</h3>
+                        <p class="text-sm text-slate-600 leading-relaxed">
+                            전용 차단기 증설 및 배선 안전 확인 후 주방 상판 깔끔 매립·설치
+                        </p>
+                    </div>
+                    <div class="mt-4 pt-3 border-t border-coolgray/60 flex items-center justify-between text-xs font-bold text-teal">
+                        <span>설치 견적 문의하기</span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </div>
+                </div>
+
+                <!-- 6. 전기 보일러 -->
+                <div onclick="openModal('install', '전기 보일러')" class="service-card cursor-pointer bg-white border-2 border-coolgray rounded-2xl p-5 sm:p-6 flex flex-col justify-between">
+                    <div>
+                        <div class="w-12 h-12 rounded-xl bg-navy/5 text-navy flex items-center justify-center text-xl mb-4">
+                            <i class="fa-solid fa-temperature-arrow-up"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-navy mb-2">06. 전기 보일러</h3>
+                        <p class="text-sm text-slate-600 leading-relaxed">
+                            난방 효율을 극대화하는 정밀 배관 연결 및 누수 완벽 차단 시공
+                        </p>
+                    </div>
+                    <div class="mt-4 pt-3 border-t border-coolgray/60 flex items-center justify-between text-xs font-bold text-teal">
+                        <span>설치 견적 문의하기</span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </div>
+                </div>
+
+                <!-- 7. 벽걸이 TV -->
+                <div onclick="openModal('install', '벽걸이 TV')" class="service-card cursor-pointer bg-white border-2 border-coolgray rounded-2xl p-5 sm:p-6 flex flex-col justify-between">
+                    <div>
+                        <div class="w-12 h-12 rounded-xl bg-navy/5 text-navy flex items-center justify-center text-xl mb-4">
+                            <i class="fa-solid fa-tv"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-navy mb-2">07. 벽걸이 TV</h3>
+                        <p class="text-sm text-slate-600 leading-relaxed">
+                            셋톱박스 숨김 및 선 없는 인테리어 마감, 벽체별 브라켓 안전 고정
+                        </p>
+                    </div>
+                    <div class="mt-4 pt-3 border-t border-coolgray/60 flex items-center justify-between text-xs font-bold text-teal">
+                        <span>설치 견적 문의하기</span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </div>
+                </div>
+
+                <!-- 8. 환풍기 -->
+                <div onclick="openModal('install', '환풍기')" class="service-card cursor-pointer bg-white border-2 border-coolgray rounded-2xl p-5 sm:p-6 flex flex-col justify-between">
+                    <div>
+                        <div class="w-12 h-12 rounded-xl bg-navy/5 text-navy flex items-center justify-center text-xl mb-4">
+                            <i class="fa-solid fa-fan"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-navy mb-2">08. 환풍기</h3>
+                        <p class="text-sm text-slate-600 leading-relaxed">
+                            욕실·다용도실 습기, 결로 및 역류 냄새 해결을 위한 고효율 환풍기 교체
+                        </p>
+                    </div>
+                    <div class="mt-4 pt-3 border-t border-coolgray/60 flex items-center justify-between text-xs font-bold text-teal">
+                        <span>교체 견적 문의하기</span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- =================================================================
+         [SECTION 3] 출장 서비스 권역 안내
+         ================================================================= -->
+    <section id="area" class="py-16 sm:py-20 bg-coolgray">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6">
+            <div class="bg-white rounded-3xl p-6 sm:p-12 shadow-sm border border-navy/5 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                <!-- 좌측: 영남권 5개 도시 그래픽 맵 카드 -->
+                <div class="lg:col-span-6 bg-navy rounded-2xl p-6 sm:p-8 text-white relative overflow-hidden">
+                    <div class="flex items-center justify-between mb-6">
+                        <span class="text-xs font-bold uppercase tracking-wider bg-teal px-3 py-1 rounded-full">SERVICE COVERAGE</span>
+                        <span class="text-xs text-coolgray/70">영남권 핵심 권역 직영 출장</span>
+                    </div>
+
+                    <!-- SVG 그래픽 네트워크 맵 -->
+                    <div class="relative py-4">
+                        <svg viewBox="0 0 400 220" class="w-full h-auto">
+                            <!-- 연결선 -->
+                            <g stroke="#0E6B7A" stroke-width="3" stroke-dasharray="6 4">
+                                <line x1="290" y1="45" x2="265" y2="95" />
+                                <line x1="265" y1="95" x2="275" y2="165" />
+                                <line x1="275" y1="165" x2="205" y2="160" />
+                                <line x1="205" y1="160" x2="135" y2="175" />
+                                <line x1="265" y1="95" x2="205" y2="160" />
+                            </g>
+                            <!-- 포항 -->
+                            <g transform="translate(290, 45)">
+                                <circle r="18" fill="#FF7A00" fill-opacity="0.25" />
+                                <circle r="8" fill="#FF7A00" />
+                                <text x="16" y="5" fill="#FFFFFF" font-size="15" font-weight="800">포항</text>
+                            </g>
+                            <!-- 경주 -->
+                            <g transform="translate(265, 95)">
+                                <circle r="15" fill="#0E6B7A" fill-opacity="0.4" />
+                                <circle r="7" fill="#38BDF8" />
+                                <text x="15" y="5" fill="#FFFFFF" font-size="14" font-weight="700">경주</text>
+                            </g>
+                            <!-- 부산 -->
+                            <g transform="translate(275, 165)">
+                                <circle r="18" fill="#FF7A00" fill-opacity="0.25" />
+                                <circle r="8" fill="#FF7A00" />
+                                <text x="16" y="5" fill="#FFFFFF" font-size="15" font-weight="800">부산</text>
+                            </g>
+                            <!-- 김해 -->
+                            <g transform="translate(205, 160)">
+                                <circle r="15" fill="#0E6B7A" fill-opacity="0.4" />
+                                <circle r="7" fill="#38BDF8" />
+                                <text x="-14" y="-15" fill="#FFFFFF" font-size="14" font-weight="700">김해</text>
+                            </g>
+                            <!-- 창원 -->
+                            <g transform="translate(135, 175)">
+                                <circle r="16" fill="#FF7A00" fill-opacity="0.25" />
+                                <circle r="7" fill="#FF7A00" />
+                                <text x="-45" y="5" fill="#FFFFFF" font-size="14" font-weight="700">창원</text>
+                            </g>
+                        </svg>
+                    </div>
+
+                    <div class="flex flex-wrap gap-2 mt-2">
+                        <span class="px-3 py-1 rounded-lg bg-white/10 text-xs font-bold">#포항전지역</span>
+                        <span class="px-3 py-1 rounded-lg bg-white/10 text-xs font-bold">#경주출장</span>
+                        <span class="px-3 py-1 rounded-lg bg-white/10 text-xs font-bold">#부산설치</span>
+                        <span class="px-3 py-1 rounded-lg bg-white/10 text-xs font-bold">#창원설치</span>
+                        <span class="px-3 py-1 rounded-lg bg-white/10 text-xs font-bold">#김해출장</span>
+                    </div>
+                </div>
+
+                <!-- 우측: 출장 안내 텍스트 -->
+                <div class="lg:col-span-6 space-y-5 text-left">
+                    <div class="inline-flex items-center gap-2 text-orange font-bold text-sm">
+                        <i class="fa-solid fa-truck-fast"></i>
+                        <span>신속 방문 &amp; 난해한 현장 전문 해결</span>
+                    </div>
+                    <h2 class="text-2xl sm:text-3xl font-black text-navy leading-snug">
+                        포항 · 경주 · 부산 · 창원 · 김해<br>
+                        전 지역 신속 출장 방문!
+                    </h2>
+                    <blockquote class="p-4 sm:p-5 rounded-2xl bg-coolgray/70 border-l-4 border-orange text-navy font-bold text-base sm:text-lg leading-relaxed">
+                        “다른 업체에서 난색을 표한 까다로운 구조도 풍부한 현장 경험으로 깔끔하게 해결합니다.”
+                    </blockquote>
+                    <p class="text-sm sm:text-base text-slate-600 leading-relaxed">
+                        구축 아파트의 좁은 배기통, 타공이 어려운 대리석·타일 벽면, 복잡한 전기 배선 환경까지 현장 상황을 정확히 진단하여 가장 안전하고 미관상 깔끔한 대안을 제시합니다.
+                    </p>
+                    <div class="pt-2">
+                        <button onclick="openModal('install')" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-navy hover:bg-navy/90 text-white font-bold px-6 py-3.5 rounded-xl transition-all">
+                            <i class="fa-solid fa-location-dot text-orange"></i>
+                            <span>우리 지역 출장 가능 여부 문의</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- =================================================================
+         [SECTION 4] 원웨이(One-Way) 창업 · 부업 교육 안내
+         ================================================================= -->
+    <section id="education" class="py-16 sm:py-24 bg-navy text-white">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6">
+            <!-- 섹션 타이틀 -->
+            <div class="text-center max-w-3xl mx-auto mb-12 sm:mb-16">
+                <span class="inline-block bg-teal text-white font-bold text-xs sm:text-sm px-3.5 py-1 rounded-full mb-3.5">
+                    ONE-WAY STARTUP ACADEMY
+                </span>
+                <h2 class="text-2xl sm:text-4xl font-black tracking-tight mb-4">
+                    기술부터 마케팅까지 한 번에,<br>
+                    무점포 정직 창업 과정
+                </h2>
+                <p class="text-sm sm:text-lg text-coolgray/90 leading-relaxed max-w-2xl mx-auto">
+                    점포 임대료와 권리금 부담 없이 내 기술로 정직하게 수익을 창출하는 가전 설치 전문가 과정입니다. 직장인 주말 투잡·부업부터 전업 기술 창업까지 실전 중심으로 전수합니다.
+                </p>
+            </div>
+
+            <!-- 3단계 교육 로드맵 카드 -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+                <!-- STEP 01 -->
+                <div class="bg-white/5 border border-white/15 rounded-2xl p-6 sm:p-8 hover:bg-white/10 transition-colors">
+                    <div class="flex items-center justify-between mb-5">
+                        <span class="text-xs font-black tracking-widest text-orange bg-orange/15 px-3 py-1 rounded-lg">STEP 01</span>
+                        <i class="fa-solid fa-book-open text-2xl text-teal"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">기초 이론 및 안전 교육</h3>
+                    <p class="text-sm text-coolgray/80 leading-relaxed">
+                        가전별 작동 원리와 내부 구조 이해, 필수 전문 공구 세팅 및 사용법, 현장에서 반드시 지켜야 할 전기·가스 안전 수칙을 체계적으로 익힙니다.
+                    </p>
+                </div>
+
+                <!-- STEP 02 -->
+                <div class="bg-white/5 border border-teal/60 rounded-2xl p-6 sm:p-8 relative hover:bg-white/10 transition-colors">
+                    <div class="flex items-center justify-between mb-5">
+                        <span class="text-xs font-black tracking-widest text-white bg-teal px-3 py-1 rounded-lg">STEP 02</span>
+                        <i class="fa-solid fa-helmet-safety text-2xl text-orange"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">실제 현장 동행 실습</h3>
+                    <p class="text-sm text-coolgray/80 leading-relaxed">
+                        보여주기식 교육장이 아닌 <strong>실제 고객 현장에 함께 동행</strong>하여 돌발 변수 대처법과 프로의 마감 디테일 등 살아있는 실전 시공 노하우를 체득합니다.
+                    </p>
+                </div>
+
+                <!-- STEP 03 -->
+                <div class="bg-white/5 border border-white/15 rounded-2xl p-6 sm:p-8 hover:bg-white/10 transition-colors">
+                    <div class="flex items-center justify-between mb-5">
+                        <span class="text-xs font-black tracking-widest text-orange bg-orange/15 px-3 py-1 rounded-lg">STEP 03</span>
+                        <i class="fa-solid fa-chart-line text-2xl text-teal"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">실전 마케팅 및 고객 유치</h3>
+                    <p class="text-sm text-coolgray/80 leading-relaxed">
+                        기술만 배워선 오더를 받을 수 없습니다. 블로그·지역 플랫폼 상위 노출 홍보 전략, 합리적 단가 산출법, 재의뢰를 부르는 CS 노하우까지 전수합니다.
+                    </p>
+                </div>
+            </div>
+
+            <!-- 하단 창업 상담 CTA -->
+            <div class="text-center">
+                <button onclick="openModal('startup')" class="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 bg-orange hover:bg-[#e56d00] text-white font-bold text-base sm:text-lg px-8 py-4 rounded-2xl shadow-lg shadow-orange/25 transition-all active:scale-98">
+                    <i class="fa-solid fa-paper-plane"></i>
+                    <span>창업·부업 무료 상담 신청하기</span>
+                </button>
+                <p class="text-xs text-coolgray/70 mt-3">
+                    * 교육 일정, 커리큘럼 상세 안내 및 수익 구조 상담을 부담 없이 받아보세요.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- =================================================================
+         [SECTION 5] 생생한 시공 & 교육 리포트 (네이버 블로그 연동)
+         ================================================================= -->
+    <section id="reports" class="py-16 sm:py-24 bg-white">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6">
+            <div class="flex flex-col sm:flex-row sm:items-end justify-between mb-10 gap-4">
+                <div>
+                    <span class="inline-block text-teal font-bold text-xs sm:text-sm tracking-wider uppercase bg-teal/10 px-3 py-1 rounded-full mb-2">
+                        FIELD REPORTS &amp; BLOG
+                    </span>
+                    <h2 class="text-2xl sm:text-3xl font-black text-navy">
+                        생생한 시공 &amp; 교육 현장 리포트
+                    </h2>
+                </div>
+                <a href="https://blog.naver.com/buzapapa3" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-sm font-bold text-navy hover:text-orange transition-colors">
+                    <span>네이버 공식 블로그 바로가기</span>
+                    <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                </a>
+            </div>
+
+            <!-- 블로그 연동 카드 3건 -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+                <!-- 리포트 1 -->
+                <a href="https://blog.naver.com/buzapapa3" target="_blank" rel="noopener noreferrer" class="group block rounded-2xl border-2 border-coolgray overflow-hidden hover:border-teal transition-all">
+                    <div class="h-44 bg-gradient-to-br from-navy to-teal p-6 flex flex-col justify-between text-white relative">
+                        <span class="self-start text-xs font-bold bg-orange px-2.5 py-1 rounded-md">시공사례 · 포항</span>
+                        <div class="text-3xl opacity-30 self-end group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-wind"></i>
+                        </div>
+                        <p class="font-bold text-lg leading-snug">주방 후드 소음·역류 완벽 해결 및 배기 덕트 정밀 교정기</p>
+                    </div>
+                    <div class="p-5 bg-white">
+                        <p class="text-sm text-slate-600 line-clamp-2 mb-3">
+                            타 업체에서 구조상 교체가 어렵다고 진단받은 구축 주방 후드를 자바라 배관 재설계로 깔끔하게 시공한 현장입니다.
+                        </p>
+                        <span class="text-xs font-bold text-teal group-hover:underline">블로그에서 작업 과정 보기 →</span>
+                    </div>
+                </a>
+
+                <!-- 리포트 2 -->
+                <a href="https://blog.naver.com/buzapapa3" target="_blank" rel="noopener noreferrer" class="group block rounded-2xl border-2 border-coolgray overflow-hidden hover:border-teal transition-all">
+                    <div class="h-44 bg-gradient-to-br from-teal to-[#094a54] p-6 flex flex-col justify-between text-white relative">
+                        <span class="self-start text-xs font-bold bg-navy px-2.5 py-1 rounded-md">시공사례 · 부산/김해</span>
+                        <div class="text-3xl opacity-30 self-end group-hover:scale-110 transition-transform">
+                            <i class="fa-regular fa-snowflake"></i>
+                        </div>
+                        <p class="font-bold text-lg leading-snug">에어컨 표준 진공 작업 및 정밀 냉매 압력 점검·보충 현장</p>
+                    </div>
+                    <div class="p-5 bg-white">
+                        <p class="text-sm text-slate-600 line-clamp-2 mb-3">
+                            시원하지 않던 에어컨의 미세 누설 부위를 찾아내고 디지털 게이지로 정량 냉매를 충전하여 냉방 효율을 복원했습니다.
+                        </p>
+                        <span class="text-xs font-bold text-teal group-hover:underline">블로그에서 작업 과정 보기 →</span>
+                    </div>
+                </a>
+
+                <!-- 리포트 3 -->
+                <a href="https://blog.naver.com/buzapapa3" target="_blank" rel="noopener noreferrer" class="group block rounded-2xl border-2 border-coolgray overflow-hidden hover:border-teal transition-all">
+                    <div class="h-44 bg-gradient-to-br from-[#2a3966] to-navy p-6 flex flex-col justify-between text-white relative">
+                        <span class="self-start text-xs font-bold bg-orange px-2.5 py-1 rounded-md">창업교육 · 현장실습</span>
+                        <div class="text-3xl opacity-30 self-end group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-graduation-cap"></i>
+                        </div>
+                        <p class="font-bold text-lg leading-snug">원웨이 무점포 창업반 수강생 실전 현장 동행 실습 스케치</p>
+                    </div>
+                    <div class="p-5 bg-white">
+                        <p class="text-sm text-slate-600 line-clamp-2 mb-3">
+                            인덕션 전용선 작업부터 벽걸이 TV 선정리까지, 실제 고객 댁에서 직접 시공하며 실전 감각을 익히는 교육 현장입니다.
+                        </p>
+                        <span class="text-xs font-bold text-teal group-hover:underline">블로그에서 교육 후기 보기 →</span>
+                    </div>
+                </a>
+            </div>
+
+            <!-- 블로그 전체보기 버튼 -->
+            <div class="text-center">
+                <a href="https://blog.naver.com/buzapapa3" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center gap-2 bg-[#03C75A] hover:bg-[#02b351] text-white font-bold px-7 py-4 rounded-2xl shadow-md transition-all">
+                    <span class="font-black text-base">N</span>
+                    <span>네이버 블로그에서 더 많은 시공 사례 보기 ↗</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- =================================================================
+         [SECTION 6] 하단 문의 배너 & 푸터 (Footer)
+         ================================================================= -->
+    <footer class="bg-navy text-white pt-14 pb-12 border-t border-white/10">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6">
+            <!-- 하단 최종 문의 유도 박스 -->
+            <div class="bg-gradient-to-r from-teal to-[#0b5663] rounded-3xl p-7 sm:p-10 mb-12 flex flex-col lg:flex-row items-center justify-between gap-6 shadow-xl">
+                <div class="text-center lg:text-left">
+                    <span class="inline-block text-xs font-bold bg-white/15 px-3 py-1 rounded-full mb-2">365일 친절 상담</span>
+                    <h3 class="text-2xl sm:text-3xl font-black mb-2">지금 바로 전문가와 상담하세요!</h3>
+                    <p class="text-sm sm:text-base text-coolgray/90">
+                        가전 설치 견적부터 무점포 창업·부업 문의까지 빠르고 정직하게 안내해 드립니다.
+                    </p>
+                </div>
+                <div class="flex flex-col sm:flex-row gap-3 w-full lg:w-auto">
+                    <a href="tel:010-9745-4321" class="flex items-center justify-center gap-2 bg-orange hover:bg-[#e56d00] text-white font-bold px-6 py-4 rounded-2xl shadow-lg transition-all">
+                        <i class="fa-solid fa-phone-volume"></i>
+                        <span>전화 상담 010-9745-4321</span>
+                    </a>
+                    <button onclick="openModal('install')" class="flex items-center justify-center gap-2 bg-white text-navy hover:bg-coolgray font-bold px-6 py-4 rounded-2xl shadow-lg transition-all">
+                        <i class="fa-solid fa-pen-to-square text-teal"></i>
+                        <span>온라인 간편 문의</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- 사업자/가게 기본 정보 -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 pb-8 border-b border-white/10 text-sm text-coolgray/85">
+                <div class="space-y-2.5 text-left">
+                    <div class="flex items-center gap-2 text-white font-black text-lg mb-3">
+                        <i class="fa-solid fa-wrench text-orange"></i>
+                        <span>이상한 홈케어</span>
+                    </div>
+                    <p><strong class="text-white inline-block w-20">슬로건</strong> 문제를 이상해도, 해결은 제대로!</p>
+                    <p><strong class="text-white inline-block w-20">서비스 지역</strong> 포항 · 경주 · 부산 · 창원 · 김해 전 지역 출장</p>
+                    <p><strong class="text-white inline-block w-20">주요 업무</strong> 8대 가전제품 전문 설치 및 원웨이 무점포 창업·부업 교육</p>
+                </div>
+                <div class="space-y-2.5 text-left md:text-right">
+                    <p class="text-white font-bold text-base">고객센터 및 창업상담 직통</p>
+                    <p class="text-2xl sm:text-3xl font-black text-orange tracking-tight">010-9745-4321</p>
+                    <p>카카오톡 ID / 번호 추가 상담: <span class="text-white font-semibold">010-9745-4321</span></p>
+                    <p>
+                        공식 블로그: 
+                        <a href="https://blog.naver.com/buzapapa3" target="_blank" rel="noopener noreferrer" class="text-white underline hover:text-orange">
+                            blog.naver.com/buzapapa3
+                        </a>
+                    </p>
+                </div>
+            </div>
+
+            <div class="pt-6 text-center text-xs text-coolgray/50">
+                &copy; 2026 이상한 홈케어 (Strange Homecare). All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <!-- =================================================================
+         [MOBILE & PC FIXED BAR] 맨 아래 고정 문의 버튼 바 (엄지 터치 최적화)
+         ================================================================= -->
+    <div class="fixed bottom-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-md border-t border-coolgray shadow-[0_-4px_20px_rgba(31,43,77,0.12)] px-3 py-2.5 md:hidden">
+        <div class="grid grid-cols-3 gap-2 max-w-lg mx-auto">
+            <!-- 전화 걸기 -->
+            <a href="tel:010-9745-4321" class="flex flex-col items-center justify-center bg-orange text-white font-bold py-2.5 rounded-xl shadow-sm active:scale-95 transition-transform">
+                <i class="fa-solid fa-phone text-base mb-0.5"></i>
+                <span class="text-xs">전화 상담</span>
+            </a>
+            <!-- 카톡 문의 안내 -->
+            <button onclick="openKakaoGuide()" class="flex flex-col items-center justify-center bg-[#FEE500] text-[#191919] font-bold py-2.5 rounded-xl shadow-sm active:scale-95 transition-transform">
+                <i class="fa-solid fa-comment text-base mb-0.5"></i>
+                <span class="text-xs">카톡 문의</span>
+            </button>
+            <!-- 간편 견적/교육 접수 -->
+            <button onclick="openModal('install')" class="flex flex-col items-center justify-center bg-navy text-white font-bold py-2.5 rounded-xl shadow-sm active:scale-95 transition-transform">
+                <i class="fa-solid fa-clipboard-check text-base mb-0.5 text-orange"></i>
+                <span class="text-xs">간편 접수</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- PC 우측 하단 플로팅 퀵 메뉴 -->
+    <div class="hidden md:flex fixed bottom-6 right-6 z-50 flex-col gap-3">
+        <a href="tel:010-9745-4321" title="전화 상담: 010-9745-4321" class="w-14 h-14 rounded-2xl bg-orange hover:bg-[#e56d00] text-white shadow-xl flex flex-col items-center justify-center transition-transform hover:scale-105">
+            <i class="fa-solid fa-phone text-lg"></i>
+            <span class="text-[10px] font-bold mt-0.5">전화문의</span>
+        </a>
+        <button onclick="openKakaoGuide()" title="카카오톡 1:1 문의" class="w-14 h-14 rounded-2xl bg-[#FEE500] hover:bg-[#f5dc00] text-[#191919] shadow-xl flex flex-col items-center justify-center transition-transform hover:scale-105">
+            <i class="fa-solid fa-comment text-lg"></i>
+            <span class="text-[10px] font-bold mt-0.5">카톡상담</span>
+        </button>
+        <a href="https://blog.naver.com/buzapapa3" target="_blank" rel="noopener noreferrer" title="네이버 공식 블로그" class="w-14 h-14 rounded-2xl bg-[#03C75A] hover:bg-[#02b351] text-white shadow-xl flex flex-col items-center justify-center transition-transform hover:scale-105">
+            <span class="font-black text-base leading-none">N</span>
+            <span class="text-[10px] font-bold mt-1">블로그</span>
+        </a>
+    </div>
+
+    <!-- =================================================================
+         [MODAL 1] 초간편 견적 / 창업 상담 신청 폼 모달 (4가지 핵심 항목)
+         ================================================================= -->
+    <div id="inquiryModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-navy/75 backdrop-blur-sm p-4">
+        <div class="bg-white rounded-3xl max-w-md w-full p-6 sm:p-8 shadow-2xl relative animate-[fadeIn_0.2s_ease-out]">
+            <!-- 닫기 버튼 -->
+            <button onclick="closeModal()" class="absolute top-5 right-5 w-9 h-9 rounded-full bg-coolgray/70 hover:bg-coolgray text-navy flex items-center justify-center transition-colors">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <div class="mb-6">
+                <span class="inline-block text-xs font-bold text-orange bg-orange/10 px-2.5 py-1 rounded-md mb-2">이상한 홈케어 빠른 상담</span>
+                <h3 class="text-2xl font-black text-navy">간편 견적 · 교육 상담 신청</h3>
+                <p class="text-xs sm:text-sm text-slate-500 mt-1">
+                    4가지 항목만 남겨주시면 확인 후 빠르게 연락드리겠습니다.
+                </p>
+            </div>
+
+            <form id="inquiryForm" onsubmit="submitInquiry(event)" class="space-y-4">
+                <!-- 1. 구분 (가전설치 / 창업교육) -->
+                <div>
+                    <label class="block text-xs font-bold text-navy mb-1.5">1. 상담 구분 <span class="text-orange">*</span></label>
+                    <div class="grid grid-cols-2 gap-2.5">
+                        <label class="cursor-pointer">
+                            <input type="radio" name="category" value="가전 설치 의뢰" class="peer sr-only" checked onchange="toggleItemOptions()">
+                            <div class="text-center py-3 px-3 rounded-xl border-2 border-coolgray font-bold text-sm text-slate-600 peer-checked:border-orange peer-checked:bg-orange/10 peer-checked:text-navy transition-all">
+                                가전 설치 의뢰
+                            </div>
+                        </label>
+                        <label class="cursor-pointer">
+                            <input type="radio" name="category" value="무점포 창업/부업 교육" class="peer sr-only" onchange="toggleItemOptions()">
+                            <div class="text-center py-3 px-3 rounded-xl border-2 border-coolgray font-bold text-sm text-slate-600 peer-checked:border-teal peer-checked:bg-teal/10 peer-checked:text-navy transition-all">
+                                창업 · 부업 교육
+                            </div>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- 2. 희망 품목 / 과정 -->
+                <div>
+                    <label for="itemSelect" class="block text-xs font-bold text-navy mb-1.5">2. 희망 품목 / 과정 <span class="text-orange">*</span></label>
+                    <select id="itemSelect" required class="w-full rounded-xl border-2 border-coolgray px-4 py-3 text-sm font-medium text-navy focus:border-orange focus:outline-none bg-white">
+                        <!-- JS로 동적 채움 -->
+                    </select>
+                </div>
+
+                <!-- 3. 지역 -->
+                <div>
+                    <label for="regionInput" class="block text-xs font-bold text-navy mb-1.5">3. 방문/거주 지역 <span class="text-orange">*</span></label>
+                    <input type="text" id="regionInput" required placeholder="예: 포항 북구, 부산 해운대구, 창원 성산구 등" class="w-full rounded-xl border-2 border-coolgray px-4 py-3 text-sm font-medium text-navy focus:border-orange focus:outline-none">
+                </div>
+
+                <!-- 4. 연락처 -->
+                <div>
+                    <label for="phoneInput" class="block text-xs font-bold text-navy mb-1.5">4. 연락처 <span class="text-orange">*</span></label>
+                    <input type="tel" id="phoneInput" required placeholder="010-0000-0000" class="w-full rounded-xl border-2 border-coolgray px-4 py-3 text-sm font-medium text-navy focus:border-orange focus:outline-none">
+                </div>
+
+                <button type="submit" class="w-full bg-orange hover:bg-[#e56d00] text-white font-bold py-4 rounded-2xl shadow-lg shadow-orange/25 transition-all text-base mt-2">
+                    무료 상담 신청 완료하기
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- =================================================================
+         [MODAL 2] 카카오톡 1:1 문의 안내 & 번호 복사 모달
+         ================================================================= -->
+    <div id="kakaoModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-navy/75 backdrop-blur-sm p-4">
+        <div class="bg-white rounded-3xl max-w-sm w-full p-6 sm:p-7 shadow-2xl text-center relative">
+            <button onclick="closeKakaoGuide()" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-coolgray/70 text-navy flex items-center justify-center">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <div class="w-14 h-14 rounded-2xl bg-[#FEE500] text-[#191919] flex items-center justify-center text-2xl mx-auto mb-4 shadow-sm">
+                <i class="fa-solid fa-comment"></i>
+            </div>
+            <h3 class="text-xl font-black text-navy mb-2">카카오톡 1:1 상담 안내</h3>
+            <p class="text-sm text-slate-600 leading-relaxed mb-5">
+                현장 사진(설치 위치, 배관 등)을 카톡으로 보내주시면 더욱 빠르고 정확한 견적 안내가 가능합니다!
+            </p>
+            <div class="bg-coolgray/70 rounded-2xl p-4 mb-5">
+                <span class="text-xs text-slate-500 block mb-1">카카오톡 친구추가 연락처</span>
+                <span id="copyPhoneTarget" class="text-xl font-black text-navy tracking-wide">010-9745-4321</span>
+            </div>
+            <div class="flex flex-col gap-2.5">
+                <button onclick="copyPhoneNumber()" class="w-full bg-navy hover:bg-navy/90 text-white font-bold py-3.5 rounded-xl transition-all flex items-center justify-center gap-2">
+                    <i class="fa-regular fa-copy"></i>
+                    <span>전화번호 복사하기</span>
+                </button>
+                <a href="tel:010-9745-4321" class="w-full bg-orange text-white font-bold py-3.5 rounded-xl transition-all flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-phone"></i>
+                    <span>바로 전화 걸기</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- 커스텀 알림 토스트 메시지 (alert 대체) -->
+    <div id="toastMessage" class="fixed top-20 left-1/2 -translate-x-1/2 z-[60] hidden bg-navy text-white px-5 py-3.5 rounded-2xl shadow-2xl border border-white/15 text-sm font-bold items-center gap-2.5 max-w-[90vw]">
+        <i class="fa-solid fa-circle-check text-orange text-lg"></i>
+        <span id="toastText">접수가 완료되었습니다.</span>
+    </div>
+
+    <!-- =================================================================
+         [JAVASCRIPT] 인터랙션 및 모달/폼 처리 로직
+         ================================================================= -->
+    <script>
+        const installItems = [
+            '주방 후드 설치/교체',
+            '가스레인지 설치',
+            '에어컨 설치',
+            '에어컨 냉매 충전',
+            '전기 인덕션 설치',
+            '전기 보일러 설치',
+            '벽걸이 TV 설치',
+            '환풍기 교체',
+            '기타 복합 설치 문의'
+        ];
+
+        const startupItems = [
+            '무점포 전업 기술 창업 과정',
+            '직장인 주말 투잡 · 부업 과정',
+            '현장 동행 실습 집중 과정',
+            '교육 커리큘럼 및 비용 문의'
+        ];
+
+        // 상담 구분에 따라 희망 품목 드롭다운 업데이트
+        function toggleItemOptions(preselected = '') {
+            const category = document.querySelector('input[name="category"]:checked').value;
+            const select = document.getElementById('itemSelect');
+            const options = category === '가전 설치 의뢰' ? installItems : startupItems;
+
+            select.innerHTML = '';
+            options.forEach(item => {
+                const opt = document.createElement('option');
+                opt.value = item;
+                opt.textContent = item;
+                if (preselected && item.includes(preselected)) {
+                    opt.selected = true;
+                }
+                select.appendChild(opt);
+            });
+        }
+
+        // 간편 상담 모달 열기
+        function openModal(type = 'install', preselectedItem = '') {
+            const modal = document.getElementById('inquiryModal');
+            const radios = document.querySelectorAll('input[name="category"]');
+
+            if (type === 'startup') {
+                radios[1].checked = true;
+            } else {
+                radios[0].checked = true;
+            }
+
+            toggleItemOptions(preselectedItem);
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        // 간편 상담 모달 닫기
+        function closeModal() {
+            const modal = document.getElementById('inquiryModal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+        // 카카오톡 안내 모달 열기/닫기
+        function openKakaoGuide() {
+            const modal = document.getElementById('kakaoModal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        function closeKakaoGuide() {
+            const modal = document.getElementById('kakaoModal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+        // 클립보드 복사 (document.execCommand 활용)
+        function copyPhoneNumber() {
+            const tempInput = document.createElement('input');
+            tempInput.value = '010-9745-4321';
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            try {
+                document.execCommand('copy');
+                showToast('번호(010-9745-4321)가 복사되었습니다. 카카오톡에 추가해 주세요!');
+                closeKakaoGuide();
+            } catch (err) {
+                showToast('번호: 010-9745-4321 (직접 입력해 주세요)');
+            }
+            document.body.removeChild(tempInput);
+        }
+
+        // 폼 제출 처리
+        function submitInquiry(event) {
+            event.preventDefault();
+            const category = document.querySelector('input[name="category"]:checked').value;
+            const item = document.getElementById('itemSelect').value;
+            const region = document.getElementById('regionInput').value.trim();
+            const phone = document.getElementById('phoneInput').value.trim();
+
+            if (!region || !phone) return;
+
+            closeModal();
+            document.getElementById('inquiryForm').reset();
+            showToast(`[${category}] ${region} 지역 상담 신청이 접수되었습니다. 곧 연락드리겠습니다!`);
+        }
+
+        // 토스트 알림 표시
+        let toastTimer;
+        function showToast(message) {
+            const toast = document.getElementById('toastMessage');
+            const toastText = document.getElementById('toastText');
+            toastText.textContent = message;
+
+            toast.classList.remove('hidden');
+            toast.classList.add('flex');
+
+            clearTimeout(toastTimer);
+            toastTimer = setTimeout(() => {
+                toast.classList.add('hidden');
+                toast.classList.remove('flex');
+            }, 4000);
+        }
+
+        // 배경 클릭 시 모달 닫기
+        window.addEventListener('click', (e) => {
+            const inquiryModal = document.getElementById('inquiryModal');
+            const kakaoModal = document.getElementById('kakaoModal');
+            if (e.target === inquiryModal) closeModal();
+            if (e.target === kakaoModal) closeKakaoGuide();
+        });
+
+        // 초기 드롭다운 세팅
+        window.addEventListener('DOMContentLoaded', () => {
+            toggleItemOptions();
+        });
+    </script>
+</body>
+</html>
